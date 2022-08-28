@@ -6,13 +6,13 @@ function run(){
 
 function populate_classes(year, rotation){
    doActionOnCourses(
-    course => {
-      if ( is_populatable(course,year,rotation) ){
-        log_populating(course);
+    destination_course => {
+      if ( is_populatable(destination_course,year,rotation) ){
+        log_populating(destination_course);
         doActionOnCourses(
-          course => {
-            if ( is_material_to_populate(course,year,rotation) ){
-              log_with(course);
+          source_course => {
+            if ( is_material_to_populate(source_course,year,rotation) ){
+              log_with(source_course);
             }
           }
         );
