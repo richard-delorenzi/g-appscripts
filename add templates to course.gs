@@ -5,17 +5,26 @@ function run(){
 }
 
 function populate_classes(year, rotation){
-   doActionOnCourses(
+  doActionOnCoursesWhere(
+    destination_course => is_populatable(destination_course,year,rotation),
     destination_course => {
-      if ( is_populatable(destination_course,year,rotation) ){
-        log_populating(destination_course);
-        doActionOnCourses(
-          source_course => {
-            if ( is_material_to_populate(source_course,year,rotation) ){
-              log_with(source_course);
-            }
-          }
-        );
+      log_populating(destination_course);
+      doActionOnCourses(  
+        source_course => {  
+          if ( is_material_to_populate(source_course,year,rotation) ){
+            log_with(source_course);
+          } 
+        }
+      );
+    }
+  );
+}
+
+function doActionOnCoursesWhere(course_pred, course_action){
+  doActionOnCourses(
+    course => {
+      if (course_pred(course)){
+        course_action(course);
       }
     }
   );
