@@ -7,26 +7,42 @@ function run(){
 function populate_classes(year, rotation){
    doActionOnCourses(
     course => {
-      if (
-        course_isRealClass(course) &&
-        course_year(course) == year &&
-        course_unit(course) == rotation
-      ){
-        Logger.log("Populating:");
-        coursePrintSummary(course,2);
-        Logger.log("  With:");
+      if ( is_populatable(course,year,rotation) ){
+        log_populating(course);
         doActionOnCourses(
           course => {
-            if (
-              course_isTemplate(course) &&
-              course_year(course) == year
-            ){
-              coursePrintSummary(course,4);
+            if ( is_material_to_populate(course,year,rotation) ){
+              log_with(course);
             }
           }
         );
       }
     }
+  );
+}
+
+function log_populating(course){
+  Logger.log("Populating:");
+  coursePrintSummary(course,2);
+  Logger.log("  With:");
+}
+
+function log_with(course){
+  coursePrintSummary(course,4);
+}
+
+function is_populatable(course,year,rotation){
+  return (
+    course_isRealClass(course) &&
+    course_year(course) == year &&
+    course_unit(course) == rotation
+  );
+}
+
+function is_material_to_populate(course,year,rotation){
+  return (
+    course_isTemplate(course) &&
+    course_year(course) == year
   );
 }
 
