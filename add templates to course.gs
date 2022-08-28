@@ -1,9 +1,9 @@
 'use strict';
 
-const dummy_run = true;
+const dummy_run = false;
 
 function run(){
-  populate_classes("7","2022-r1", "unit1");
+  populate_classes("7","2022-r1");
 }
 
 function populate_classes(year, rotation, unit="ALL-UNITS"){
