@@ -208,6 +208,12 @@ class Topics {
   }
 }
 
+function courseMakeTopicWithName(course, name){
+  Logger.log("Make Topic: "+ name);
+  const topic = {name: name};
+  const newTopicId = Classroom.Courses.Topics.create(topic, course.id)
+}
+
 
 
 

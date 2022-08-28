@@ -1,6 +1,6 @@
 'use strict';
 
-const dummy_run = false;
+const dummy_run = true;
 
 function run(){
   populate_classes("7","2022-r1");
@@ -11,6 +11,8 @@ function populate_classes(year, rotation, unit="ALL-UNITS"){
     destination_course => is_populatable(destination_course,year,rotation),
     destination_course => {
       populate_one_class(destination_course,year,unit);
+      const iso_date=new Date().toISOString();
+      courseMakeTopicWithName(destination_course, "Added work "+iso_date);
     }
   );
 }
@@ -99,7 +101,7 @@ function course_addTemplate(course, templateCourse){
       }
 
       if (workMaterialsContainsAForm(cw)){
-        const msg="Teacher: form copy is broken: copy it manualy";
+        const msg="ERROR: form copy is broken — copy it manualy";
         delete cw.materials;
         cw.title=cw.title+" #" +msg
         cw.description=msg+"\nFrom: "+ templateCourse.name;
