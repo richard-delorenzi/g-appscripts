@@ -68,13 +68,15 @@ function course_addTemplate(course, templateCourse){
 
   let topics= new Topics(course);
 
-  Logger.log('found template: name=%s id=%s section=%s room=%s state=%s', 
-    templateCourse.name, 
-    templateCourse.id,
-    templateCourse.section,
-    templateCourse.room,
-    templateCourse.courseState
-  );
+  if (false){
+    Logger.log('found template: name=%s id=%s section=%s room=%s state=%s', 
+      templateCourse.name, 
+      templateCourse.id,
+      templateCourse.section,
+      templateCourse.room,
+      templateCourse.courseState
+    );
+  }
 
   courseDoActionOnAssignments(templateCourse,
     courseWork => {
@@ -103,7 +105,7 @@ function course_addTemplate(course, templateCourse){
         cw.description=msg+"\nFrom: "+ templateCourse.name;
       }
 
-      Logger.log('work=%s', JSON.stringify(cw));
+      //Logger.log('work=%s', JSON.stringify(cw));
       Classroom.Courses.CourseWork.create(cw,course.id);
     }
   );

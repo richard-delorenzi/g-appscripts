@@ -14,7 +14,7 @@ function doActionOnCourses(action) {
       action.apply(null,arguments);
     }
     catch (err){
-      Logger.log('No access to a cource');
+      Logger.log('Warn: No access to a cource');
     }
   }
   doActionOn(
@@ -197,7 +197,7 @@ class Topics {
 
   courseTopic(course,existingCourse,existingCourseWork){
     const existingTopic=Classroom.Courses.Topics.get(existingCourse.id,existingCourseWork.topicId);
-    Logger.log("existingTopic: %s", JSON.stringify(existingTopic));
+    //Logger.log("existingTopic: %s", JSON.stringify(existingTopic));
     const topicName=existingTopic.name;
 
     const newTopicId = this.topics[topicName] ??
