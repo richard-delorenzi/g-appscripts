@@ -133,6 +133,10 @@ function course_isTemplate(course){
   return course_type(course) === "template"
 }
 
+function course_isRealClass(course){
+  return course_type(course) === "class"
+}
+
 function course_year(course){
   const year_text = course_section(course,Section.Year);
   const regexp = /year(\d+)/;
@@ -158,18 +162,22 @@ function course_unit(course){
 
 function courseLog(course, msg="course"){
   if (false){
-    Logger.log(msg+": name=%s id=%s section=%s room=%s state=%s", 
-      course.name, 
-      course.id,
-      course.section,
-      course.room,
-      course.courseState
-    );
+    coursePrintSummary(course,0,msg);
   }else{
     Logger.log(msg+"=\n %s",
       JSON.stringify(course,null,3)
     );
   }
+}
+
+function coursePrintSummary(course, indent_amount=0, msg="course"){
+  Logger.log(" ".repeat(indent_amount)+msg+": name=%s id=%s section=%s room=%s state=%s", 
+    course.name, 
+    course.id,
+    course.section,
+    course.room,
+    course.courseState
+  );
 }
 
 function assignmentLog(assignment, msg="assignment") {
