@@ -9,12 +9,11 @@ function populate_classes(year, rotation){
     destination_course => is_populatable(destination_course,year,rotation),
     destination_course => {
       log_populating(destination_course);
-      doActionOnCourses(  
-        source_course => {  
-          if ( is_material_to_populate(source_course,year,rotation) ){
-            log_with(source_course);
-          } 
-        }
+      doActionOnCoursesWhere(  
+        source_course => is_material_to_populate(source_course,year,rotation),
+        source_course => {
+          log_with(source_course);
+        } 
       );
     }
   );
