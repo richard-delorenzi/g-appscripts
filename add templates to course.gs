@@ -19,7 +19,7 @@ function populate_one_class(destination_course, year, rotation){
     source_course => is_material_to_populate(source_course,year,rotation),
     source_course => {
       log_with(source_course);
-      course_addTemplate(destination_course, source_course)
+      course_addTemplate(destination_course, source_course);
     } 
   );
 }
