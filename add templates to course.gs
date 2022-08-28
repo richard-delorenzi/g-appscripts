@@ -8,14 +8,18 @@ function populate_classes(year, rotation){
   doActionOnCoursesWhere(
     destination_course => is_populatable(destination_course,year,rotation),
     destination_course => {
-      log_populating(destination_course);
-      doActionOnCoursesWhere(  
-        source_course => is_material_to_populate(source_course,year,rotation),
-        source_course => {
-          log_with(source_course);
-        } 
-      );
+      populate_one_class(destination_course,year,rotation);
     }
+  );
+}
+
+function populate_one_class(destination_course, year, rotation){
+  log_populating(destination_course);
+  doActionOnCoursesWhere(  
+    source_course => is_material_to_populate(source_course,year,rotation),
+    source_course => {
+      log_with(source_course);
+    } 
   );
 }
 
