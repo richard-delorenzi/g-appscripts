@@ -1,25 +1,29 @@
 'use strict';
 
+const dummy_run = true;
+
 function run(){
-  populate_classes("7","2022-r1");
+  populate_classes("7","2022-r1", "unit1");
 }
 
-function populate_classes(year, rotation){
+function populate_classes(year, rotation, unit="ALL-UNITS"){
   doActionOnCoursesWhere(
     destination_course => is_populatable(destination_course,year,rotation),
     destination_course => {
-      populate_one_class(destination_course,year,rotation);
+      populate_one_class(destination_course,year,unit);
     }
   );
 }
 
-function populate_one_class(destination_course, year, rotation){
+function populate_one_class(destination_course, year, unit){
   log_populating(destination_course);
   doActionOnCoursesWhere(  
-    source_course => is_material_to_populate(source_course,year,rotation),
+    source_course => is_material_to_populate(source_course,year,unit),
     source_course => {
       log_with(source_course);
-      course_addTemplate(destination_course, source_course);
+      if ( !dummy_run ){
+        course_addTemplate(destination_course, source_course);
+      }
     } 
   );
 }
@@ -48,14 +52,15 @@ function is_populatable(course,year,rotation){
   return (
     course_isRealClass(course) &&
     course_year(course) == year &&
-    course_unit(course) == rotation
+    course_unit(course) === rotation
   );
 }
 
-function is_material_to_populate(course,year,rotation){
+function is_material_to_populate(course,year,unit){
   return (
     course_isTemplate(course) &&
-    course_year(course) == year
+    course_year(course) == year &&
+    (unit === "ALL-UNITS" || course_unit(course) === unit)
   );
 }
 
