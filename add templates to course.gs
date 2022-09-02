@@ -1,6 +1,6 @@
 'use strict';
 
-const dummy_run = true;
+const dummy_run = false;
 
 function run(){
   populate_classes("1","2022","web_design");

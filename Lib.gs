@@ -14,7 +14,7 @@ function doActionOnCourses(action) {
       action.apply(null,arguments);
     }
     catch (err){
-      Logger.log('Warn: No access to a cource');
+      Logger.log(`Warn: No access to a cource — ${err}`);
     }
   }
   doActionOn(
@@ -74,10 +74,10 @@ function doActionOn(lister,action) {
       iterate(list);
     }
 
-    //Logger.log("token=%s", token);
+    Logger.log("token=%s", token);
     if (token == null) is_exit=true;
   }
-  //Logger.log('No more courses found.');
+  Logger.log('No more courses found.');
 }
 
 /*google classroom built-in states */
