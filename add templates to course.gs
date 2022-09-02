@@ -3,7 +3,7 @@
 const dummy_run = true;
 
 function run(){
-  populate_classes("7","2022-r1");
+  populate_classes("1","2022","web_design");
 }
 
 function populate_classes(year, rotation, unit="ALL-UNITS"){
@@ -11,8 +11,7 @@ function populate_classes(year, rotation, unit="ALL-UNITS"){
     destination_course => is_populatable(destination_course,year,rotation),
     destination_course => {
       populate_one_class(destination_course,year,unit);
-      const iso_date=new Date().toISOString();
-      courseMakeTopicWithName(destination_course, "Added work "+iso_date);
+      tag_completted_class(destination_course);
     }
   );
 }
@@ -28,6 +27,15 @@ function populate_one_class(destination_course, year, unit){
       }
     } 
   );
+}
+
+function tag_completted_class(course){
+  if ( !dummy_run ){
+    const iso_date=new Date().toISOString();
+    courseMakeTopicWithName(course, "Added work "+iso_date);
+  }else{
+    Logger.log("Tagging class as complete");
+  }
 }
 
 function doActionOnCoursesWhere(course_pred, course_action){
@@ -70,7 +78,7 @@ function course_addTemplate(course, templateCourse){
 
   let topics= new Topics(course);
 
-  if (false){
+  if (true){
     Logger.log('found template: name=%s id=%s section=%s room=%s state=%s', 
       templateCourse.name, 
       templateCourse.id,
@@ -107,7 +115,7 @@ function course_addTemplate(course, templateCourse){
         cw.description=msg+"\nFrom: "+ templateCourse.name;
       }
 
-      //Logger.log('work=%s', JSON.stringify(cw));
+      Logger.log('work=%s', JSON.stringify(cw));
       Classroom.Courses.CourseWork.create(cw,course.id);
     }
   );

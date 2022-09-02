@@ -1,5 +1,21 @@
 'use strict';
 
+function log_web_template(){
+  function myLog(assignment,course){
+    Logger.log(`assignment=\n ${course.name} ${assignment.title}`);
+    assignmentLog(assignment);
+  }
+
+  doActionOnAssignmentInCourseWhereWhere(
+    myLog, 
+    _ => true, 
+    course => (
+      course_isTemplate(course) &&
+      course_unit(course)=="web_design" 
+    )
+  );
+}
+
 function logActiveCourses(){
   logCoursesWhere(course_isActive);
 }
@@ -18,8 +34,7 @@ function logAllAssignments(){
 
 function logNameOfScheduledAssignments(){
   function assignmentCourseLogSchedTime(assignment,course){
-    Logger.log(`Scheduled=\n ${course.name} ${course.alternateLink} ${assignment.title} ${assignment.scheduledTime}`
-    );
+    Logger.log(`Scheduled=\n ${course.name} ${course.alternateLink} ${assignment.title} ${assignment.scheduledTime}`);
   }
 
   doActionOnAssignmentInCourseWhereWhere(assignmentCourseLogSchedTime, assignment_isScheduled, course_isActiveClass);
